@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String formPage(Model model) {
-        model.addAttribute("title", "Login");
-        return "login/form";
-    }
-
+//    @RequestMapping(value = "/home")
+//    public String homePage(Model model) {
+//        model.addAttribute("title", "Welcom to Spring");
+//        return "home/welcome";
+//    }
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String homePage(
             @RequestParam(name = "name") String name,
