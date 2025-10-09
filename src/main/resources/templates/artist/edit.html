@@ -4,7 +4,7 @@
 <body>
 <div th:insert="~{fragment/frag :: navbar}"></div>
 <h1>Edit Artist</h1>
-<form method="post" th:action="@{/artist/edit}" th:object="${artist}">
+<form method="post" th:action="@{/artist/save}" th:object="${artist}">
     <label>ID</label>
     <input type="text" id="id" name="id" th:field="*{artistId}"></input>
     <br>

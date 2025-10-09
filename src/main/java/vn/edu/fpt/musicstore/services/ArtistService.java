@@ -1,6 +1,8 @@
 package vn.edu.fpt.musicstore.services;
 
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.musicstore.entities.Artist;
 import vn.edu.fpt.musicstore.repositories.ArtistRepository;
 
@@ -18,4 +20,13 @@ public class ArtistService {
     public Artist findById(int id) {
         return artistRepository.findById(id).orElse(null);
     }
+    @Transactional
+    public Artist save(Artist artist) {
+        return artistRepository.save(artist);
+    }
+    @Transactional
+    public void deleteById(int id) {
+       artistRepository.deleteById(id);
+    }
+
 }

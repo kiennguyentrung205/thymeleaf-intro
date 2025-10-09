@@ -25,7 +25,7 @@ public class ArtistController {
 
     @RequestMapping(value = "artist/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("artist",artistService.findById(id));
+        model.addAttribute("artist", artistService.findById(id));
         return "artist/edit";
     }
 
@@ -37,12 +37,21 @@ public class ArtistController {
 
     @RequestMapping(value = "artist/delete/{id}")
     public String deleteArtist(Model model, @PathVariable("id") int id) {
+        System.out.println("Artist id:" + id);
+        model.addAttribute("artist", artistService.findById(id));
         return "artist/delete";
     }
 
-    @RequestMapping(value = "/artist/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute(name = "artist") Artist artist) {
+    @RequestMapping(value = "/artist/save")
+    public String save(@ModelAttribute(name = "artist") Artist artist) {
         System.out.println("Artist name:" + artist.getArtistName());
+        artistService.save(artist);
+        return "redirect:/artist";
+    }
+    @RequestMapping(value = "/artist/delete/{id}", method = RequestMethod.POST)
+    public String delete(@ModelAttribute(name = "artist") Artist artist) {
+        System.out.println("Artist id:" + artist.getArtistId());
+        artistService.deleteById(artist.getArtistId());
         return "redirect:/artist";
     }
 }
