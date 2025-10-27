@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1 th:text="${title}"></h1>
-<h1 th:text="${name}"></h1>
+<h1>Hi <span sec:authentication="name"></span></h1>
+<a th:href="@{/artist}">click here to continue---></a>
 </body>
 </html>

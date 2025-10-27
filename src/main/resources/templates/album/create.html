@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragment/frag :: head}"></head>
+<body>
+<div th:insert="~{fragment/frag :: navbar}"></div>
+<form th:object="${album}">
+    <h1>Create New Album</h1>
+    <label>Artist</label>
+    <select th:each="artist : ${artistList}">
+        <option th:text="${artist.artistName}"></option>
+    </select>
+    <br>
+    <br>
+    <label>Title</label>
+    <input type="text" name="title">
+    <button type="submit">Submit</button>
+    <button type="reset">Clear</button>
+</form>
+</body>
+</html>

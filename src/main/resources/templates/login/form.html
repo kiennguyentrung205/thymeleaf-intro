@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="fragment/frag :: head">
 </head>
 <body>
+<header th:replace="fragment/frag::navbar"></header>
 <h1 th:text="${login}"></h1>
-<form method="post" action="/home" >
+<form method="post" th:action="@{/login}" >
     <label>User Name</label>
     <input type="text" name="name"></input>
     <br>

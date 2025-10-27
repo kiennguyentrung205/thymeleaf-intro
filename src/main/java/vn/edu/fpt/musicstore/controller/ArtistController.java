@@ -1,5 +1,8 @@
 package vn.edu.fpt.musicstore.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +20,15 @@ public class ArtistController {
     }
 
     @RequestMapping(value = {"/artist", "/artist/list"})
-    public String artitsList(Model model) {
-        List<Artist> list = artistService.findAll();
-        model.addAttribute("artists", list);
+    public String artitsList(Model model, @RequestParam(value = "page", defaultValue = "1") int page, Authentication authentication) {
+       UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println("username = " + userDetails.getUsername());
+        int pageSize = 10;
+        Page<Artist> artistsPage = artistService.findPaginated(page-1, pageSize);
+        model.addAttribute("artistsPage", artistsPage);
+        model.addAttribute("currentPage", page);
+//                List<Artist> list = artistService.findAll();
+//        model.addAttribute("artists", list);
         return "artist/list";
     }
 
@@ -48,10 +57,19 @@ public class ArtistController {
         artistService.save(artist);
         return "redirect:/artist";
     }
+
     @RequestMapping(value = "/artist/delete/{id}", method = RequestMethod.POST)
     public String delete(@ModelAttribute(name = "artist") Artist artist) {
         System.out.println("Artist id:" + artist.getArtistId());
         artistService.deleteById(artist.getArtistId());
         return "redirect:/artist";
     }
+
+    @GetMapping(value = "artist/detail/{id}")
+    public String details(Model model, @PathVariable("id") int id) {
+        System.out.println("hello:" + id);
+        model.addAttribute("artist", artistService.findById(id));
+        return "artist/detail";
+    }
+
 }

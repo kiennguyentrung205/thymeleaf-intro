@@ -1,9 +1,9 @@
 package vn.edu.fpt.musicstore.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Artist {
@@ -12,6 +12,8 @@ public class Artist {
     private int artistId;
     @Column(name = "name")
     private String artistName;
+    @OneToMany(mappedBy = "artistId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Album> albums;
 
     public Artist(int artistId, String artistName) {
         this.artistId = artistId;
@@ -37,4 +39,11 @@ public class Artist {
         this.artistName = artistName;
     }
 
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
 }
