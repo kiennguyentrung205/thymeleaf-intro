@@ -22,12 +22,14 @@
                 </ul>
                 <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
                     <li class="nav-item">
-                       <a th:href="@{/login}">Login</a>
+                        <a th:href="@{/login}">Login</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav" sec:authorize="isAuthenticated()">
                     <li class="nav-item">
-                        Hi <span sec:authentication="name"></span>, Logout
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit">Hi <span sec:authentication="name"></span>, Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>

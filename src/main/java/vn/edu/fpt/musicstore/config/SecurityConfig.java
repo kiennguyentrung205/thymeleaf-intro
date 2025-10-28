@@ -22,15 +22,20 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(Customizer.withDefaults())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/assets/**","/login","/").permitAll()
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/assets/**", "/login", "/").permitAll()
                         .anyRequest().authenticated())
 
-                .formLogin(form->form
+                .formLogin(form -> form
                         .loginPage("/login")
                         .usernameParameter("name")
-                        .defaultSuccessUrl("/home",true)
+                        .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
                 .build();
     }
 }
